@@ -47,8 +47,14 @@ This repository contains a Python-based automation script for conducting race co
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
-   cd script
+   <!-- https -->
+   git clone https://github.com/FernandoZnga/burp-suite-race-lab.git
+   
+   <!-- ssh -->
+   git clone git@github.com:FernandoZnga/burp-suite-race-lab.git
+   
+   <!--  -->
+   cd burp-suite-race-lab
    ```
 
 2. **Run the setup script (Recommended):**
