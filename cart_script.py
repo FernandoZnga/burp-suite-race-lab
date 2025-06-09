@@ -34,18 +34,18 @@ from typing import Dict, Any
 # =============================================================================
 
 # Target configuration - UPDATE THESE VALUES
-URL = 'https://0a390020035ec1b5821438f800a10031.web-security-academy.net/cart'
+URL = 'https://0adb00140391efa182e1b11f00420025.web-security-academy.net/cart'
 
 # HTTP Headers - UPDATE Host, Origin, and Referer to match your lab instance
 HEADERS: Dict[str, str] = {
-    'Host': '0a390020035ec1b5821438f800a10031.web-security-academy.net',
+    'Host': '0adb00140391efa182e1b11f00420025.web-security-academy.net',
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:139.0) Gecko/20100101 Firefox/139.0',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'Accept-Language': 'en-US,en;q=0.5',
     'Accept-Encoding': 'gzip, deflate, br',
     'Content-Type': 'application/x-www-form-urlencoded',
-    'Origin': 'https://0a390020035ec1b5821438f800a10031.web-security-academy.net',
-    'Referer': 'https://0a390020035ec1b5821438f800a10031.web-security-academy.net/product?productId=1',
+    'Origin': 'https://0adb00140391efa182e1b11f00420025.web-security-academy.net',
+    'Referer': 'https://0adb00140391efa182e1b11f00420025.web-security-academy.net/product?productId=1',
     'Upgrade-Insecure-Requests': '1',
     'Sec-Fetch-Dest': 'document',
     'Sec-Fetch-Mode': 'navigate',
@@ -57,7 +57,7 @@ HEADERS: Dict[str, str] = {
 }
 
 # Session cookies - UPDATE with your session token from Burp Suite
-COOKIES: Dict[str, str] = {'session': '6RhAsnvNaKZ6UinARqIdbxeNxVCUMoOg'}
+COOKIES: Dict[str, str] = {'session': 'EMZUEWrqMIoqebLEJZJ5ihADmS6h44Y0'}
 
 # POST data payload - Modify as needed for your specific lab
 DATA: Dict[str, str] = {'productId': '1', 'redir': 'PRODUCT', 'quantity': '99'}
