@@ -49,8 +49,8 @@ All contributions must maintain the educational nature of this project:
 1. **Fork the repository**
 2. **Clone your fork**
    ```bash
-   git clone https://github.com/your-username/repository-name.git
-   cd repository-name
+   git clone https://github.com/FernandoZnga/burp-suite-race-lab.git
+   cd burp-suite-race-lab
    ```
 
 3. **Create a virtual environment**
