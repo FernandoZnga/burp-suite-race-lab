@@ -47,9 +47,16 @@ This repository contains a Python-based automation script for conducting race co
 ### Prerequisites
 
 - Python 3.7 or higher
-- Active internet connection
-- Access to the target web application (PortSwigger Web Security Academy)
-- Burp Suite (for capturing requests)
+- Access to PortSwigger Web Security Academy
+- Look for the **Lab: Low-level logic flaw**
+- Burp Suite (Community or Professional)
+
+### 🎯 Two-Step Workflow
+
+**Step 1**: Capture your Burp Suite request
+**Step 2**: Run the integrated script
+
+**That's it!** Everything else is automated. ✨
 
 ### Installation & Usage
 
@@ -79,46 +86,58 @@ This repository contains a Python-based automation script for conducting race co
    pip install -r requirements.txt
    ```
 
-3. **🆕 Automatic Configuration (Recommended):**
+3. **🆕 Integrated Two-Step Workflow (Recommended):**
    
-   **Step 3a**: Capture request in Burp Suite
+   **Step 3a**: Capture and save your Burp Suite request
    - Set up Burp Suite proxy
-   - Navigate to the target cart functionality
+   - Navigate to the target cart functionality  
    - Send a POST request to `/cart` to Repeater
-   - Save the raw request to a text file
+   - Copy the raw request and save to `burp_repeater_cart_request.txt`
    
-   **Step 3b**: Use the automatic parser
+   **Step 3b**: Run the integrated setup script
    ```bash
-   # Parse Burp Suite request and auto-configure
-   python3 parse_burp_request.py your_burp_request.txt
-   
-   # Or use the default filename:
-   python3 parse_burp_request.py
-   # (expects 'burp_repeater_cart_request.txt')
+   # One command does everything:
+   python3 setup_and_run.py
    ```
    
-   **Step 3c**: Run the attack
+   **What this does automatically:**
+   - ✅ Parses your Burp Suite request
+   - ✅ Updates cart_script.py configuration
+   - ✅ Sets up virtual environment
+   - ✅ Installs dependencies
+   - ✅ Executes the race condition attack
+   
+   **For subsequent runs:**
    ```bash
-   python3 cart_script.py
+   # Just update burp_repeater_cart_request.txt and run:
+   python3 setup_and_run.py
    ```
 
-4. **Manual Configuration (Alternative):**
+4. **Manual Parser Usage (Alternative):**
    
-   If you prefer manual setup, edit `cart_script.py` directly:
+   If you prefer step-by-step manual control:
    ```bash
-   # Copy template
-   cp config_template.py config.py
+   # Parse Burp request and auto-configure
+   python3 parse_burp_request.py your_burp_request.txt
    
-   # Edit configuration values
-   nano config.py  # or your preferred editor
+   # Install dependencies (if needed)
+   pip install -r requirements.txt
    
    # Run the attack
    python3 cart_script.py
    ```
 
-5. **One-command setup (Legacy):**
+5. **Fully Manual Configuration (Advanced):**
+   
+   For complete manual control:
    ```bash
-   python3 setup_and_run.py
+   # Copy template and edit manually
+   cp config_template.py config.py
+   nano config.py  # Edit all values manually
+   
+   # Install dependencies and run
+   pip install -r requirements.txt
+   python3 cart_script.py
    ```
 
 ## ⚙️ Configuration
@@ -180,31 +199,40 @@ TIMEOUT_SECONDS = 30      # Request timeout
 
 ## 🔍 How It Works
 
-### 🚀 Attack Flow
+### 🚀 Integrated Workflow
 
-1. **Configuration Extraction**: 
-   - 🆕 Parser reads Burp Suite request files
-   - Automatically extracts URLs, headers, cookies, and POST data
+1. **🆕 Two-Step Process**:
+   - **Step 1**: User updates `burp_repeater_cart_request.txt` with Burp Suite request
+   - **Step 2**: Run `python3 setup_and_run.py` for complete automation
+
+2. **🔧 Automatic Configuration Extraction**: 
+   - Parser reads Burp Suite request files
+   - Extracts URLs, headers, cookies, and POST data
    - Updates script configuration without manual editing
+   - Validates configuration before proceeding
 
-2. **Race Condition Exploitation**: 
+3. **🛠️ Environment Setup**:
+   - Auto-detects operating system (Linux/macOS/Windows)
+   - Creates/manages Python virtual environment
+   - Installs/updates dependencies automatically
+   - Cross-platform compatibility
+
+4. **⚡ Race Condition Exploitation**: 
    - Sends multiple asynchronous HTTP requests simultaneously
    - Targets cart functionality to exploit race conditions
    - Attempts to add more items than available inventory
+   - Real-time attack monitoring
 
-3. **Concurrency Control**: 
+5. **🔗 Concurrency Control**: 
    - Uses aiohttp with TCP connection pooling (limit: 50)
    - Asynchronous I/O for maximum concurrency
    - Configurable timeout and connection limits
+   - Error handling for network issues
 
-4. **Request Flooding**: 
-   - Executes 337 concurrent POST requests by default
-   - Quantity set to 99 for maximum race condition potential
-   - Real-time status monitoring
-
-5. **Response Analysis**:
+6. **📊 Response Analysis**:
    - Logs HTTP status codes for each request
    - Identifies successful vs. failed requests
+   - Performance metrics (requests/second)
    - Detects race condition exploitation success
 
 ### 🔧 Technical Implementation
@@ -248,49 +276,125 @@ This script is designed to work with **PortSwigger Web Security Academy** labora
 
 ### ✅ Successful Execution
 
-When executed successfully, the script should:
+When executed successfully, the integrated workflow should show:
 
-1. **🆕 Configuration Phase**:
+1. **🎯 Banner and Workflow Info**:
    ```
-   🔍 Burp Suite Request Parser
+   ============================================================
+   🎯 Burp Suite Race Condition Lab - Integrated Workflow
+   🎓 Educational Tool for Cybersecurity Students
+   ============================================================
+   
+   📋 Two-Step Workflow:
+      1️⃣  Update burp_repeater_cart_request.txt with your Burp Suite request
+      2️⃣  Run this script to auto-configure and execute the attack
+   ```
+
+2. **🔍 STEP 1: Parse Burp Suite Request**:
+   ```
+   🔍 Burp Suite Request Parser:
    📄 Parsing: burp_repeater_cart_request.txt
-   📊 Extracted Configuration:
-   🎯 Target URL: https://lab-id.web-security-academy.net/cart
-   🍪 Cookies: session: EMZUEWrq...mS6h44Y0
-   📦 POST Data: productId: 1, quantity: 99
-   ✅ cart_script.py updated successfully!
+   ✅ Configuration extracted successfully:
+      🎯 Target URL: https://lab-id.web-security-academy.net/cart
+      🍪 Session: EMZUEWrq...mS6h44Y0
+      📦 POST Data: productId=1, redir=PRODUCT, quantity=1
+   🔄 Updating cart_script.py...
+   ✅ Configuration applied successfully!
    ```
 
-2. **🚀 Attack Execution**:
+3. **🛠️ STEP 2: Environment Setup** (if needed):
    ```
+   🖥️  Operating System Detection:
+      Detected: MacOS
+   ✅ Using: MacOS
+   
+   📦 Virtual Environment Setup:
+      Creating with: /usr/bin/python3
+   ✅ Virtual environment created: ./venv
+   
+   📚 Installing Dependencies:
+   ✅ Dependencies installed successfully
+   ```
+
+4. **⚡ STEP 3: Execute Race Condition Attack**:
+   ```
+   🚀 Launching Race Condition Attack:
    🎯 Starting race condition attack...
-   📡 Sending 337 concurrent requests to /cart
-   ⚡ Request completed: 200 OK
-   ⚡ Request completed: 200 OK
-   ⚡ Request completed: 400 Bad Request  # Expected for race condition
+   📊 Target: https://lab-id.web-security-academy.net/cart
+   🔢 Requests: 330
+   --------------------------------------------------
+   [001] ✓ 200    [002] ✓ 200    [003] ✓ 200
+   [004] ✓ 200    [005] ✓ 200    [006] ✓ 200
+   --------------------------------------------------
+   ✅ Attack completed in 17.71 seconds
+   📈 Average: 18.64 requests/second
    ```
 
-3. **🏆 Race Condition Success Indicators**:
-   - Mix of `200 OK` and `400 Bad Request` responses
-   - Successfully adding more items than available inventory
-   - Exploitation of timing-dependent logic flaws
-   - Cart manipulation beyond normal constraints
+5. **🏁 Completion Message**:
+   ```
+   ============================================================
+   🏁 Workflow completed!
+   
+   💡 Next time, just update burp_repeater_cart_request.txt
+      and run this script again for instant execution.
+   ============================================================
+   ```
+
+### 🏆 Race Condition Success Indicators
+
+- **Successful requests**: Multiple `200 OK` responses
+- **Performance metrics**: High requests/second rate
+- **Timing exploitation**: Fast concurrent execution
+- **Configuration automation**: Seamless setup process
 
 ### 🔍 Debugging
 
-If the attack fails:
+If the integrated workflow fails:
+
+**🔧 Common Issues:**
+
+1. **Missing Burp request file**:
+   ```
+   ❌ Burp request file not found: burp_repeater_cart_request.txt
+   💡 Please create the file with your Burp Suite request
+   ```
+   **Solution**: Capture request in Burp Suite and save to the file
+
+2. **Invalid session**:
+   ```
+   ❌ Attack script failed with exit code: 1
+   ```
+   **Solution**: Re-capture request with fresh session token
+
+3. **Network connectivity**:
+   ```
+   [003] ❌ ERROR: Cannot connect to host
+   ```
+   **Solution**: Check VPN connection and lab accessibility
+
+**🔍 Manual Debugging Commands:**
 
 ```bash
-# Check configuration
-python3 parse_burp_request.py --dry-run
+# Test configuration parsing
+python3 parse_burp_request.py
 
 # Verify session is still valid
-# Re-capture request in Burp Suite if needed
-
-# Check target accessibility
 curl -X POST "https://your-lab.web-security-academy.net/cart" \
      -H "Cookie: session=your-session" \
      -d "productId=1&redir=PRODUCT&quantity=1"
+
+# Check virtual environment
+source venv/bin/activate  # Linux/macOS
+venv\Scripts\activate     # Windows
+pip list
+```
+
+**🛠️ Reset and Retry:**
+
+```bash
+# Clean reset (if needed)
+rm -rf venv/
+python3 setup_and_run.py
 ```
 
 ## 🤝 Contributing
@@ -305,12 +409,14 @@ This is an educational project. If you have suggestions for improvements or educ
 
 ### 💡 Contribution Ideas
 
-- Additional Burp Suite request parsers
-- Support for other lab types (SQLi, XSS, etc.)
-- Enhanced error handling and logging
-- GUI interface for configuration
-- Docker containerization
-- Additional educational documentation
+- **🔧 Enhanced automation**: Additional Burp Suite request parsers for other attack types
+- **🎯 Lab expansion**: Support for other PortSwigger labs (SQLi, XSS, CSRF, etc.)
+- **🖥️ User interface**: GUI interface for configuration and attack monitoring
+- **📦 Containerization**: Docker support for consistent environments
+- **📊 Analytics**: Advanced response analysis and attack success metrics
+- **🎓 Educational content**: Additional tutorials and vulnerability explanations
+- **🔒 Security features**: Enhanced session management and credential handling
+- **🌐 Multi-target**: Support for custom targets beyond PortSwigger labs
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
@@ -320,20 +426,30 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆕 New Features
 
-### 🔧 Burp Suite Request Parser
+### 🚀 Integrated Two-Step Workflow
 
+- **🎯 Streamlined process**: Update request file → Run script → Attack executes
+- **🔄 Complete automation**: Parsing, setup, and execution in one command
+- **🛠️ Smart environment management**: Auto-detects OS, manages virtual environments
+- **📱 Cross-platform support**: Works on Linux, macOS, and Windows
+- **🔍 Intelligent error handling**: Clear messages and troubleshooting guidance
+
+### 🔧 Enhanced Burp Suite Request Parser
+
+- **🆕 Integrated into setup workflow**: No separate parser execution needed
 - **Automatic configuration extraction** from Burp Suite Repeater requests
-- **Interactive confirmation** before applying changes
+- **Dynamic module loading**: Imports parser functionality on-demand
 - **Security-conscious** token masking in output
-- **Error handling** for malformed request files
+- **Comprehensive validation**: Checks files and configuration before proceeding
 - **Reusable** across different lab instances
 
-### 📁 Enhanced Project Structure
+### 📁 Professional Project Structure
 
-- **Configuration templates** for easy setup
-- **Example files** for reference
-- **Detailed documentation** with setup guides
-- **Cross-platform compatibility** improvements
+- **Configuration templates** for manual setup (if preferred)
+- **Example files** for reference and learning
+- **Detailed documentation** with multiple workflow options
+- **Comprehensive .gitignore** for all Python virtual environment tools
+- **Educational focus** with clear explanations and best practices
 
 ## 🔗 Related Resources
 
