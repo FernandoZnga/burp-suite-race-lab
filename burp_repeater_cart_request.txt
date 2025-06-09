@@ -1,14 +1,14 @@
 POST /cart HTTP/2
-Host: 0adb00140391efa182e1b11f00420025.web-security-academy.net
-Cookie: session=EMZUEWrqMIoqebLEJZJ5ihADmS6h44Y0
+Host: 0a820027030cd29f8705e3c600150019.web-security-academy.net
+Cookie: session=re4BQfkvR9vFZIzemtceiZZrIQ0zeOc3
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:139.0) Gecko/20100101 Firefox/139.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 36
-Origin: https://0adb00140391efa182e1b11f00420025.web-security-academy.net
-Referer: https://0adb00140391efa182e1b11f00420025.web-security-academy.net/product?productId=1
+Origin: https://0a820027030cd29f8705e3c600150019.web-security-academy.net
+Referer: https://0a820027030cd29f8705e3c600150019.web-security-academy.net/product?productId=1
 Upgrade-Insecure-Requests: 1
 Sec-Fetch-Dest: document
 Sec-Fetch-Mode: navigate
@@ -19,4 +19,3 @@ Priority: u=0, i
 Te: trailers
 
 productId=1&redir=PRODUCT&quantity=1
-
