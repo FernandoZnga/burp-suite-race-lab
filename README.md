@@ -469,7 +469,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍🎓 Author
 
-**Master's Degree in Cybersecurity Student**
+**Master's Degree in Cybersecurity Student**: [Fernando Zúniga](https://github.com/FernandoZnga)
 
 ---
 
